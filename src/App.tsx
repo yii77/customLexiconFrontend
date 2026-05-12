@@ -3,6 +3,10 @@ import { StatusBar } from 'react-native';
 
 import { initApp } from './logic/service';
 
+import { FontProvider } from './logic/context';
+import { CustomAlertProvider } from './presentation/component/system/Alert/CustomAlertProvider';
+import { ToastProvider } from './presentation/component/system/Toast/ToastProvider';
+
 export default function App() {
   const [ready, setReady] = useState(false);
 
@@ -14,10 +18,16 @@ export default function App() {
   if (!ready) return null;
 
   return (
-    <StatusBar
-      backgroundColor="transparent"
-      translucent
-      barStyle="dark-content"
-    />
+    <ToastProvider>
+      <CustomAlertProvider>
+        <FontProvider>
+          <StatusBar
+            backgroundColor="transparent"
+            translucent
+            barStyle="dark-content"
+          />
+        </FontProvider>
+      </CustomAlertProvider>
+    </ToastProvider>
   );
 }

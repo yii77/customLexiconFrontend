@@ -1,0 +1,92 @@
+import { StyleSheet, Dimensions } from 'react-native';
+
+import { BG_COLOR } from '../../../style';
+
+const { width } = Dimensions.get('window');
+
+export default StyleSheet.create({
+  topModalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  centerModalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 32,
+  },
+  bottomModalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+
+  topAlertBox: {
+    backgroundColor: BG_COLOR.bgCard,
+    borderBottomLeftRadius: 32,
+    borderBottomRightRadius: 32,
+    width: '100%',
+    maxHeight: '80%',
+    padding: 16,
+    gap: 16,
+    zIndex: 2,
+  },
+
+  centerAlertBox: {
+    width: width * 0.8,
+    backgroundColor: BG_COLOR.bgCard,
+    borderRadius: 14,
+    padding: 16,
+    gap: 16,
+    zIndex: 2,
+  },
+
+  bottomAlertBox: {
+    backgroundColor: BG_COLOR.bgCard,
+    borderTopLeftRadius: 32,
+    borderTopRightRadius: 32,
+    width: '100%',
+    maxHeight: '80%',
+    padding: 16,
+    gap: 16,
+    zIndex: 2,
+  },
+
+  alertTitle: {
+    fontSize: 18,
+    fontWeight: 600,
+    textAlign: 'left',
+  },
+
+  alertMessage: {
+    fontSize: 15,
+    textAlign: 'left',
+    lineHeight: 24,
+  },
+
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    width: '100%',
+    gap: '10%',
+  },
+
+  alertButton: {
+    alignItems: 'center',
+    borderRadius: 20,
+    paddingVertical: 10,
+    width: '45%',
+    backgroundColor: '#ffffffff',
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.1)',
+  },
+
+  alertButtonText: {
+    color: '#050000ff',
+    fontSize: 16,
+  },
+});
