@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
 
+import { NavigationContainer } from '@react-navigation/native';
+
 import { initApp } from './logic/service';
 
 import { FontProvider } from './logic/context';
 import { CustomAlertProvider } from './presentation/component/system/Alert/CustomAlertProvider';
 import { ToastProvider } from './presentation/component/system/Toast/ToastProvider';
+
+import TabNavigator from './presentation/navigation/TabNavigator';
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -21,11 +25,14 @@ export default function App() {
     <ToastProvider>
       <CustomAlertProvider>
         <FontProvider>
-          <StatusBar
-            backgroundColor="transparent"
-            translucent
-            barStyle="dark-content"
-          />
+          <NavigationContainer>
+            <StatusBar
+              backgroundColor="transparent"
+              translucent
+              barStyle="dark-content"
+            />
+            <TabNavigator />
+          </NavigationContainer>
         </FontProvider>
       </CustomAlertProvider>
     </ToastProvider>

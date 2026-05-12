@@ -1,3 +1,7 @@
 export * from './userSetting';
 export * from './word';
 export * from './distractor';
+export * from './book';
+export * from './unitBookMapping';
+export * from './wordBookMapping';
+export * from './wordPracticeStatus';
