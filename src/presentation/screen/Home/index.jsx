@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 
 import { Page } from '../../component/ui';
-import { PracticeBookCard } from './widget';
+import { PracticeBookCard, DailyTaskCard } from './widget';
 
 import { atomLayout } from '../../style';
 
@@ -12,6 +12,7 @@ export default function HomeScreen() {
         style={[atomLayout.flex, atomLayout.paddingBase, atomLayout.gapBase]}
       >
         <PracticeBookCard />
+        <DailyTaskCard />
       </View>
     </Page>
   );

@@ -5,3 +5,4 @@ export * from './book';
 export * from './unitBookMapping';
 export * from './wordBookMapping';
 export * from './wordPracticeStatus';
+export * from './dailyPractice';

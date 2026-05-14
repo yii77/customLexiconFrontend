@@ -1,3 +1,7 @@
 export * from './getBookWordCountByStatus';
 export * from './getSystemBooks';
 export * from './getUserWordBooks';
+export * from './calcPracticeCount';
+export * from './fetchPracticeWords';
+export * from './getNotesByWord';
+export * from './getWordWithDistractors';

@@ -1,4 +1,4 @@
-import { sql } from 'drizzle-orm';
+import { sql, eq } from 'drizzle-orm';
 
 import { db, words } from '../db';
 
@@ -45,4 +45,40 @@ export async function insertWords(data) {
 
 export async function clearWords() {
   await db.delete(words);
+}
+
+export async function getWordDefinition(word) {
+  const result = await db
+    .select({
+      definition: words.definition,
+    })
+    .from(words)
+    .where(eq(words.word, word))
+    .limit(1);
+
+  const row = result[0];
+
+  if (!row) return null;
+
+  return JSON.parse(row.definition);
+}
+
+export async function getWordPhonetic(word) {
+  const result = await db
+    .select({
+      usPhonetic: words.usPhonetic,
+      ukPhonetic: words.ukPhonetic,
+    })
+    .from(words)
+    .where(eq(words.word, word))
+    .limit(1);
+
+  const row = result[0];
+
+  if (!row) return null;
+
+  return {
+    usPhonetic: row.usPhonetic,
+    ukPhonetic: row.ukPhonetic,
+  };
 }

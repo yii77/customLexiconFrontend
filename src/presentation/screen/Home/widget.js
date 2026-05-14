@@ -3,9 +3,12 @@ import { View, Text, ImageBackground } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
-import { usePracticeBookCardData } from '../../../logic/hook/practice';
+import {
+  usePracticeBookCardData,
+  useDailyTaskCardData,
+} from '../../../logic/hook/practice';
 
-import { TextButton } from '../../component/ui';
+import { TextButton, Dropdown } from '../../component/ui';
 
 import {
   atomLayout,
@@ -150,3 +153,67 @@ const PracticeBookEmpty = ({ onChoose }) => {
     </View>
   );
 };
+
+export const DailyTaskCard = ({}) => {
+  const {
+    currentPracticeMode,
+    practiceModeOptions,
+    newCount,
+    reviewCount,
+    updatePracticeMode,
+    handleStartPractice,
+  } = useDailyTaskCardData();
+
+  return (
+    <View
+      style={[
+        style.dailyTaskCard,
+        compositeEffect.primaryShadow,
+        atomLayout.paddingBase,
+        atomLayout.gapBase,
+      ]}
+    >
+      <View style={compositeLayout.rowBetweenCenter}>
+        <Text
+          style={[
+            atomTypography.fontMedium,
+            atomTypography.textXL,
+            atomTypography.leadingXXL,
+            atomTypography.colorBlack,
+            atomTypography.familyNotoSerifSemibold,
+          ]}
+        >
+          今日学习
+        </Text>
+        <Dropdown
+          options={practiceModeOptions}
+          value={currentPracticeMode}
+          placeholder="选择模式"
+          onSelect={updatePracticeMode}
+          menuStyle={[]}
+          labelStyle={[atomTypography.colorTertiary]}
+          triggerArrowStyle={style.triggerArrow}
+        />
+      </View>
+      <View style={style.taskCountContainer}>
+        <TaskCount label="新词" count={newCount} />
+        <TaskCount label="复习" count={reviewCount} />
+      </View>
+      <TextButton
+        title="开始学习"
+        onPress={handleStartPractice}
+        buttonStyle={style.startButton}
+        textStyle={style.startText}
+      />
+    </View>
+  );
+};
+
+const TaskCount = ({ label, count }) => (
+  <View style={atomLayout.alignCenter}>
+    <Text style={style.countNumber}>{count ?? 0}</Text>
+    <Text style={[atomTypography.textXS, atomTypography.colorPrompt]}>
+      {label}
+    </Text>
+  </View>
+);

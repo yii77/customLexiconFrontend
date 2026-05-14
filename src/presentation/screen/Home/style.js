@@ -6,6 +6,7 @@ import {
   RADIUS,
   TEXT_COLOR,
   BORDER_COLOR,
+  ICON_COLOR,
 } from '../../style/foundation/token';
 
 export default StyleSheet.create({
@@ -63,5 +64,37 @@ export default StyleSheet.create({
     backgroundColor: BG_COLOR.primaryLight,
     height: 4,
     borderRadius: 999,
+  },
+
+  dailyTaskCard: {
+    backgroundColor: BG_COLOR.bgCard,
+    borderRadius: 20,
+  },
+  triggerArrow: {
+    tintColor: ICON_COLOR.tertiary,
+  },
+  taskCountContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 40,
+    marginBottom: 8,
+  },
+  countNumber: {
+    fontSize: 30,
+    fontWeight: '600',
+    color: TEXT_COLOR.black,
+  },
+  startButton: {
+    height: 44,
+    borderRadius: 999,
+    backgroundColor: BG_COLOR.primaryLight,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  startText: {
+    color: '#ffffff',
+    fontSize: 17,
+    fontWeight: '500',
+    letterSpacing: 2,
   },
 });
