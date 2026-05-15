@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { usePracticeData } from '../../../logic/hook/practice';
 
 import { Page } from '../../component/ui';
-import { PracticeContent, ProgressHeader } from './widget';
+import { PracticeContent, ProgressHeader, SessionList } from './widget';
 
 import { atomLayout } from '../../style';
 
@@ -22,9 +22,10 @@ export default function PracticeScreen() {
       >
         <ProgressHeader progress={progress} />
         {progress.total === progress.completed ? (
-          <View></View>
+          <SessionList />
         ) : (
           <PracticeContent
+            key={currentWord.word}
             currentWord={currentWord}
             completeStep={completeStep}
             updateStatus={updateStatus}

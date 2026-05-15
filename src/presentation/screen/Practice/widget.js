@@ -10,7 +10,11 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import { useChoiceData, useStarLevel } from '../../../logic/hook/practice';
+import {
+  useChoiceData,
+  useStarLevel,
+  useDailyPracticeCompletedList,
+} from '../../../logic/hook/practice';
 import { useWordPhonetic } from '../../../logic/hook/word';
 
 import {
@@ -72,6 +76,56 @@ export const ProgressHeader = ({ word, progress }) => {
           }}
         />
       </View>
+    </View>
+  );
+};
+
+export const SessionList = () => {
+  const { list } = useDailyPracticeCompletedList();
+
+  const navigation = useNavigation();
+
+  return (
+    <View style={atomLayout.flex}>
+      <FlatList
+        data={list}
+        keyExtractor={item => item.word}
+        contentContainerStyle={[
+          atomLayout.gapMD,
+          atomLayout.paddingVerticalBase,
+        ]}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <View
+            style={[style.sessionListItem, compositeEffect.secondaryShadow]}
+          >
+            <EnglishText fontWeight={'500'} style={[atomTypography.textLG]}>
+              {item.word}
+            </EnglishText>
+            <Text
+              style={[
+                atomTypography.colorPrompt,
+                atomTypography.textSM,
+                atomTypography.fontMedium,
+              ]}
+            >
+              错误 {item.wrongCount} 次
+            </Text>
+          </View>
+        )}
+      />
+      <TextButton
+        title={'短文强化'}
+        onPress={() => {
+          navigation.replace('ArticleScreen', { wordArray: allWords });
+        }}
+        buttonStyle={style.articleButton}
+        textStyle={[
+          atomTypography.colorPrimary,
+          atomTypography.fontSemibold,
+          atomTypography.textLG,
+        ]}
+      />
     </View>
   );
 };
@@ -533,7 +587,7 @@ const SpellingMode = memo(
 
     return (
       <View style={[atomLayout.gapBase, atomLayout.flex]}>
-        <View style={[atomLayout.alignCenter]}>
+        <View>
           <View style={[atomLayout.row, atomLayout.gapSM, atomLayout.alignEnd]}>
             <EnglishText fontWeight={'700'} style={style.enTitle}>
               {word}

@@ -1,4 +1,4 @@
-import { eq, and, lte, isNotNull, count } from 'drizzle-orm';
+import { eq, and, lte, isNotNull, count, inArray } from 'drizzle-orm';
 import { ObjectId } from 'bson';
 
 import { db, wordPracticeStatus } from '../db';
@@ -82,4 +82,26 @@ export async function updateWordStarLevel(word, starLevel) {
     .update(wordPracticeStatus)
     .set({ starLevel })
     .where(eq(wordPracticeStatus.word, word));
+}
+
+export async function getLearnedStatusWordGroups() {
+  const rows = await db
+    .select({
+      word: wordPracticeStatus.word,
+      status: wordPracticeStatus.status,
+    })
+    .from(wordPracticeStatus)
+    .where(inArray(wordPracticeStatus.status, [1, 2]));
+
+  const result = [[], []];
+
+  for (const row of rows) {
+    if (row.status === 1) {
+      result[0].push(row.word);
+    } else if (row.status === 2) {
+      result[1].push(row.word);
+    }
+  }
+
+  return result;
 }

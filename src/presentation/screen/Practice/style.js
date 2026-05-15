@@ -27,6 +27,29 @@ export default StyleSheet.create({
     borderRadius: 999,
   },
 
+  sessionListItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+
+    backgroundColor: '#fff',
+    borderRadius: 12,
+  },
+  articleButton: {
+    backgroundColor: '#f1f6f8',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    marginHorizontal: 16,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#bccad0',
+    marginTop: 24,
+    marginBottom: 8,
+  },
   phoneticContainer: { left: 10, bottom: 10 },
 
   enTitle: { fontSize: 25, left: 4 },

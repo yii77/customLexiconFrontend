@@ -2,7 +2,10 @@ import { useState, useEffect, useContext, useCallback } from 'react';
 
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
-import { calcPracticeCount } from '../../../data/local/repository';
+import {
+  calcPracticeCount,
+  hasUnpracticedWords,
+} from '../../../data/local/repository';
 
 import { getUserSetting, setUserSetting } from '../../../data/local/dao';
 
@@ -41,8 +44,8 @@ export function useDailyTaskCardData() {
         mode === PRACTICE_MODE.REVIEW_ONLY,
       );
 
-      setNewCount(practice.newCount);
-      setReviewCount(practice.reviewCount);
+      setNewCount(practice.newCount > 0 ? practice.newCount : 0);
+      setReviewCount(practice.reviewCount > 0 ? practice.reviewCount : 0);
       setCompletedCount(practice.completedCount);
     } catch (error) {
       console.log(error);
@@ -74,7 +77,7 @@ export function useDailyTaskCardData() {
     }
   };
 
-  const handleStartPractice = () => {
+  const handleStartPractice = async () => {
     if (practiceBook === null) {
       showAlert({
         title: '提示',
@@ -93,7 +96,14 @@ export function useDailyTaskCardData() {
       });
       return;
     }
-    if (practiceMode != PRACTICE_MODE.REVIEW_ONLY && newCount === 0) {
+
+    const hasNew = await hasUnpracticedWords(practiceBook._id);
+
+    if (
+      practiceMode != PRACTICE_MODE.REVIEW_ONLY &&
+      !hasNew &&
+      newCount === 0
+    ) {
       showAlert({
         title: '提示',
         content: '该词书新词已学完，换一本词书吧~',
@@ -104,6 +114,25 @@ export function useDailyTaskCardData() {
             onPress: () => {
               hideAlert();
               navigation.navigate('LibraryScreen');
+            },
+          },
+        ],
+        type: 'center',
+      });
+      return;
+    }
+
+    if (newCount === 0 && reviewCount === 0) {
+      showAlert({
+        title: '提示',
+        content: '今日单词已学完，是否生成短文进行强化？',
+        buttons: [
+          { text: '取消', onPress: hideAlert },
+          {
+            text: '确定',
+            onPress: () => {
+              hideAlert();
+              navigation.navigate('ArticleScreen');
             },
           },
         ],

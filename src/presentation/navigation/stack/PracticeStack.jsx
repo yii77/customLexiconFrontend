@@ -4,6 +4,7 @@ import HomeScreen from '../../screen/Home';
 import LibraryScreen from '../../screen/Library';
 import SearchBookScreen from '../../screen/SearchBook';
 import PracticeScreen from '../../screen/Practice';
+import ArticleScreen from '../../screen/Article';
 
 export default function PracticeStackNavigator() {
   const Stack = createNativeStackNavigator();
@@ -18,6 +19,7 @@ export default function PracticeStackNavigator() {
       <Stack.Screen name="LibraryScreen" component={LibraryScreen} />
       <Stack.Screen name="SearchBookScreen" component={SearchBookScreen} />
       <Stack.Screen name="PracticeScreen" component={PracticeScreen} />
+      <Stack.Screen name="ArticleScreen" component={ArticleScreen} />
     </Stack.Navigator>
   );
 }

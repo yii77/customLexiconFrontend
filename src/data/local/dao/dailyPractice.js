@@ -1,4 +1,4 @@
-import { and, eq, count, sql } from 'drizzle-orm';
+import { and, eq, count, sql, inArray } from 'drizzle-orm';
 
 import { db, dailyPractice } from '../db';
 
@@ -107,4 +107,49 @@ export async function getWordPracticeByDate(word, date) {
     .limit(1);
 
   return result[0] || null;
+}
+
+export async function getWordErrorList() {
+  const countExpr = sql`
+    SUM(${dailyPractice.wrongCount})
+    + SUM(${dailyPractice.fuzzyCount}) * 0.5
+  `;
+
+  const result = await db
+    .select({
+      word: dailyPractice.word,
+    })
+    .from(dailyPractice)
+    .groupBy(dailyPractice.word)
+    .having(sql`${countExpr} > 0`);
+
+  return result.map(r => r.word);
+}
+
+export async function getTodayPracticeStats() {
+  const today = new Date().toISOString().slice(0, 10);
+
+  const result = await db
+    .select({
+      word: dailyPractice.word,
+      wrongCount: sql`SUM(${dailyPractice.wrongCount})`.as('wrongCount'),
+    })
+    .from(dailyPractice)
+    .where(eq(dailyPractice.date, today))
+    .groupBy(dailyPractice.word);
+
+  return result;
+}
+
+export async function getTodayWords() {
+  const today = new Date().toISOString().slice(0, 10);
+
+  const result = await db
+    .select({
+      word: dailyPractice.word,
+    })
+    .from(dailyPractice)
+    .where(eq(dailyPractice.date, today));
+
+  return result.map(item => item.word);
 }

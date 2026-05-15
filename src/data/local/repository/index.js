@@ -5,3 +5,4 @@ export * from './calcPracticeCount';
 export * from './fetchPracticeWords';
 export * from './getNotesByWord';
 export * from './getWordWithDistractors';
+export * from './hasUnpracticedWords';
