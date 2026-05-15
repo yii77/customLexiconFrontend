@@ -49,7 +49,7 @@ export async function syncDistractorSource() {
 
   await AsyncStorage.setItem(
     PRACTICE_SOURCE_VERSION_KEYS.distractor,
-    JSON.stringify(serverVersion),
+    serverVersion,
   );
 
   console.log('干扰项资源更新完成');
@@ -78,10 +78,7 @@ export async function syncWordSource() {
   if (list.length > 0) {
     await insertWords(list);
   }
-  await AsyncStorage.setItem(
-    PRACTICE_SOURCE_VERSION_KEYS.word,
-    JSON.stringify(serverVersion),
-  );
+  await AsyncStorage.setItem(PRACTICE_SOURCE_VERSION_KEYS.word, serverVersion);
 
   console.log('单词资源更新完成');
 }

@@ -66,7 +66,14 @@ export async function incrementDailyPractice(
     correct: dailyPractice.correctCount,
   };
 
+  const insertFieldMap = {
+    wrong: 'wrongCount',
+    fuzzy: 'fuzzyCount',
+    correct: 'correctCount',
+  };
+
   const targetField = fieldMap[field];
+  const insertField = insertFieldMap[field];
 
   await db
     .insert(dailyPractice)
@@ -79,7 +86,7 @@ export async function incrementDailyPractice(
       wrongCount: 0,
       fuzzyCount: 0,
       correctCount: 0,
-      [field]: 1,
+      [insertField]: 1,
     })
     .onConflictDoUpdate({
       target: [dailyPractice.word, dailyPractice.date],
@@ -87,7 +94,7 @@ export async function incrementDailyPractice(
         type,
         totalStep,
         completedStep,
-        [field]: sql`${targetField} + 1`,
+        [insertField]: sql`${targetField} + 1`,
       },
     });
 }

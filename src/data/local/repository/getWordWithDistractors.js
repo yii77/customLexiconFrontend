@@ -6,6 +6,7 @@ export async function getWordWithDistractors(word) {
 
   const mainResult = await db
     .select({
+      id: words.id,
       word: words.word,
       definition: words.definition,
     })

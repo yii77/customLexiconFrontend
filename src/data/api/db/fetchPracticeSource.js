@@ -38,7 +38,7 @@ export async function fetchWordDownload() {
 }
 
 async function fetchPracticeSourceDownload(endpoint) {
-  const limit = 30000;
+  const limit = 20000;
   let page = 1;
   let allList = [];
 
