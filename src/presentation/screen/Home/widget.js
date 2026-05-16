@@ -8,17 +8,50 @@ import {
   useDailyTaskCardData,
 } from '../../../logic/hook/practice';
 
-import { TextButton, Dropdown } from '../../component/ui';
+import {
+  TextButton,
+  Dropdown,
+  ImageButton,
+  EnglishText,
+} from '../../component/ui';
 
 import {
   atomLayout,
   compositeLayout,
   compositeEffect,
   atomTypography,
+  iconSource,
+  iconStyles,
 } from '../../style';
 import style from './style';
 
 import bookCover from '../../../../assets/bookCover/defaultCover.png';
+
+export const Header = () => {
+  const navigation = useNavigation();
+  return (
+    <View style={compositeLayout.rowBetweenCenter}>
+      <EnglishText
+        fontWeight={'500'}
+        fontStyle={'Italic'}
+        style={[
+          atomTypography.textXL,
+          atomTypography.leadingMD,
+          style.sentence,
+        ]}
+      >
+        own the moment
+      </EnglishText>
+      <ImageButton
+        imageSource={iconSource.setting}
+        imageStyle={iconStyles.lg}
+        onPress={() => {
+          navigation.navigate('PracticeSettingScreen');
+        }}
+      />
+    </View>
+  );
+};
 
 export const PracticeBookCard = ({}) => {
   const { practiceBook, wordStatusCount } = usePracticeBookCardData();

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
 
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { initApp } from './logic/service';
@@ -10,6 +11,8 @@ import { CustomAlertProvider } from './presentation/component/system/Alert/Custo
 import { ToastProvider } from './presentation/component/system/Toast/ToastProvider';
 
 import TabNavigator from './presentation/navigation/TabNavigator';
+
+import { atomLayout } from './presentation/style';
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -22,19 +25,21 @@ export default function App() {
   if (!ready) return null;
 
   return (
-    <ToastProvider>
-      <CustomAlertProvider>
-        <FontProvider>
-          <NavigationContainer>
-            <StatusBar
-              backgroundColor="transparent"
-              translucent
-              barStyle="dark-content"
-            />
-            <TabNavigator />
-          </NavigationContainer>
-        </FontProvider>
-      </CustomAlertProvider>
-    </ToastProvider>
+    <GestureHandlerRootView style={atomLayout.flex}>
+      <ToastProvider>
+        <CustomAlertProvider>
+          <FontProvider>
+            <NavigationContainer>
+              <StatusBar
+                backgroundColor="transparent"
+                translucent
+                barStyle="dark-content"
+              />
+              <TabNavigator />
+            </NavigationContainer>
+          </FontProvider>
+        </CustomAlertProvider>
+      </ToastProvider>
+    </GestureHandlerRootView>
   );
 }

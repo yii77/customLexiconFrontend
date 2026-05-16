@@ -97,4 +97,8 @@ export default StyleSheet.create({
     fontWeight: '500',
     letterSpacing: 2,
   },
+
+  sentence: {
+    left: 4,
+  },
 });

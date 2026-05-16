@@ -6,3 +6,7 @@ export * from './useChoiceData';
 export * from './useDailyPracticeCompletedList';
 export * from './usePracticeArticle';
 export * from './useArticleWordQuery';
+export * from './usePracticeSettings';
+export * from './useBrushMode';
+export * from './useReviewPlan';
+export * from './useReviewMultiplier';
