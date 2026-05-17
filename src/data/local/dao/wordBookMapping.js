@@ -1,4 +1,4 @@
-import { eq, sql } from 'drizzle-orm';
+import { eq, sql, and } from 'drizzle-orm';
 
 import { db, wordBookMapping } from '../db';
 
@@ -14,7 +14,7 @@ export async function insertWordBookMappings(data) {
     wordOrder: item.word_order,
     word: item.word,
     content: item.content ? JSON.stringify(item.content) : null,
-    createTime: new Date().toISOString(),
+    createAt: new Date().toISOString(),
   }));
 
   await db
@@ -28,4 +28,20 @@ export async function insertWordBookMappings(data) {
         wordOrder: sql`excluded.word_order`,
       },
     });
+}
+
+export async function updateWordOrders(bookId, changed) {
+  await Promise.all(
+    changed.map(({ word, wordOrder }) =>
+      db
+        .update(wordBookMapping)
+        .set({ wordOrder })
+        .where(
+          and(
+            eq(wordBookMapping.word, word),
+            eq(wordBookMapping.bookId, bookId),
+          ),
+        ),
+    ),
+  );
 }

@@ -116,10 +116,19 @@ const PracticeBookContent = memo(
           ]}
         >
           {/* 标题 + 按钮 */}
-          <View style={compositeLayout.rowBetweenCenter}>
-            <Text style={[atomTypography.fontSemibold, atomTypography.textLG]}>
-              {practiceBook?.name}
-            </Text>
+          <View style={[compositeLayout.rowBetweenCenter]}>
+            <View style={atomLayout.flex}>
+              <Text
+                style={[
+                  atomTypography.fontSemibold,
+                  atomTypography.textLG,
+                  style.bookName,
+                ]}
+                numberOfLines={1}
+              >
+                {practiceBook?.name}
+              </Text>
+            </View>
 
             <TextButton
               title="更换"

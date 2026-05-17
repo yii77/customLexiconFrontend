@@ -6,3 +6,4 @@ export * from './fetchPracticeWords';
 export * from './getNotesByWord';
 export * from './getWordWithDistractors';
 export * from './hasUnpracticedWords';
+export * from './fetchWordListData';

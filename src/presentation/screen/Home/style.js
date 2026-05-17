@@ -40,7 +40,13 @@ export default StyleSheet.create({
     marginTop: 2,
     marginHorizontal: 4,
   },
+  bookName: {
+    numberOfLines: 1,
+    ellipsizeMode: 'tail',
+    width: '100%',
+  },
   changeButton: {
+    marginLeft: 8,
     justifyContent: 'center',
     borderWidth: 0.8,
     borderRadius: 8,
