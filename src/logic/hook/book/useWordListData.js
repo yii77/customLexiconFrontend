@@ -8,11 +8,15 @@ import { getUserSetting, setUserSetting } from '../../../data/local/dao';
 
 import { DISPLAY_ORDER } from '../../../data/constants';
 
+import { useCustomAlert } from '../../../presentation/component/system';
+
 export function useWordListData() {
   const [displayBook, setDisplayBook] = useState(null);
   const [displayOrder, setDisplayOrder] = useState(DISPLAY_ORDER.UNIT);
 
   const [listData, setListData] = useState([]);
+
+  const { hideAlert } = useCustomAlert();
 
   useEffect(() => {
     (async () => {
@@ -24,6 +28,7 @@ export function useWordListData() {
       if (displayBook) {
         setDisplayBook(JSON.parse(displayBook));
       } else {
+        await AsyncStorage.setItem('displayBook', JSON.stringify(practiceBook));
         setDisplayBook(JSON.parse(practiceBook));
       }
       if (order) setDisplayOrder(order);
@@ -52,13 +57,17 @@ export function useWordListData() {
 
   const updateDisplayBook = useCallback(
     async book => {
-      if (book === displayBook) return;
+      if (book === displayBook) {
+        hideAlert();
+        return;
+      }
       setListData([]);
       setDisplayBook(book);
       await AsyncStorage.setItem(
         'displayBook',
         JSON.stringify({ _id: book._id, name: book.name }),
       );
+      hideAlert();
     },
     [displayBook],
   );

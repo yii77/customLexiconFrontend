@@ -27,10 +27,13 @@ export function PracticeBookProvider({ children }) {
   }, []);
 
   const savePracticeBook = async book => {
-    await AsyncStorage.setItem(
-      'practiceBook',
-      JSON.stringify({ _id: book._id, name: book.name }),
-    );
+    const displayBook = await AsyncStorage.getItem('displayBook');
+
+    const stored = JSON.stringify({ _id: book._id, name: book.name });
+    if (practiceBook === displayBook) {
+      await AsyncStorage.setItem('practiceBook', stored);
+    }
+    await AsyncStorage.setItem('practiceBook', stored);
     await loadPracticeBook();
   };
 

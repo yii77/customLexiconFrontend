@@ -27,7 +27,8 @@ export default function BookManagerScreen() {
         <DefaultHeader
           displayBook={displayBook}
           displayOrder={displayOrder}
-          onUpdateDisplayOrder={updateDisplayOrder}
+          onSelectDisplayOrder={updateDisplayOrder}
+          onSelectDisplayBook={updateDisplayBook}
         />
 
         <ListContent

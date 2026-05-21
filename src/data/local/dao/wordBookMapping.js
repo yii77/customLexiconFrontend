@@ -1,4 +1,4 @@
-import { eq, sql, and } from 'drizzle-orm';
+import { eq, sql, and, count } from 'drizzle-orm';
 
 import { db, wordBookMapping } from '../db';
 
@@ -45,3 +45,14 @@ export async function updateWordOrders(bookId, changed) {
     ),
   );
 }
+
+export const getWordCountByBookId = async bookId => {
+  const result = await db
+    .select({
+      count: count(wordBookMapping.id),
+    })
+    .from(wordBookMapping)
+    .where(eq(wordBookMapping.bookId, bookId));
+
+  return result[0]?.count ?? 0;
+};

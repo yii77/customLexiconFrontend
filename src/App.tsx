@@ -26,20 +26,20 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={atomLayout.flex}>
-      <ToastProvider>
-        <CustomAlertProvider>
-          <FontProvider>
-            <NavigationContainer>
+      <NavigationContainer>
+        <ToastProvider>
+          <CustomAlertProvider>
+            <FontProvider>
               <StatusBar
                 backgroundColor="transparent"
                 translucent
                 barStyle="dark-content"
               />
               <TabNavigator />
-            </NavigationContainer>
-          </FontProvider>
-        </CustomAlertProvider>
-      </ToastProvider>
+            </FontProvider>
+          </CustomAlertProvider>
+        </ToastProvider>
+      </NavigationContainer>
     </GestureHandlerRootView>
   );
 }

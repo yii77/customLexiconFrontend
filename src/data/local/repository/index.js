@@ -7,3 +7,4 @@ export * from './getNotesByWord';
 export * from './getWordWithDistractors';
 export * from './hasUnpracticedWords';
 export * from './fetchWordListData';
+export * from './getUserBooks';
